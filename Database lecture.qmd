@@ -184,6 +184,120 @@ A primary key is a field, or a set of fields, that uniquely identifies each reco
 
 Structured Query Language (SQL) is the de facto language of all Relational Database Management systems. SQL was formalized in 1986 by the American National Standards Institute (ANSI) and the international Organization for Standardization (ISO). While there are different versions of SQL, they are all built on these standards and are only slightly different in execution [@jamison].
 
+
+## THE MIGHTY SELECT STATEMENT
+- Basic Syntax:
+
+  ```{SQL}
+  #| echo: true
+  SELECT column(s)
+  FROM table(s)
+  WHERE condition(s);
+  ```
+  
+- The symbol * means all columns in SQL. 
+
+- To query all columns and all rows in a table with no filters or conditions, use the following syntax:
+
+  ```{SQL}
+  #| echo: true
+  SELECT *
+  FROM table;
+  ```
+  
+## Functions in SQL
+
+- The COUNT() function returns the number of rows that matches a specified criterion.
+
+```{SQL COUNT}
+  SELECT COUNT(column)
+  FROM table
+  WHERE condition;
+```
+
+- The AVG() function returns the average value of a numeric column.
+
+```{SQL AVG}
+  SELECT AVG(column)
+  FROM table
+  WHERE condition;
+```
+
+- The SUM() function returns the total sum of a numeric column.
+
+```{SQL SUM}
+  SELECT SUM(column)
+  FROM table
+  WHERE condition;
+```
+
+## Filtering Results Using WHERE
+
+- Basic syntax:
+
+```{SQL select}
+  SELECT column(s)
+  FROM table(s)
+  WHERE condition(s);
+```
+
+- The WHERE clause is used to filter results returned by a query, to extract only the rows that fulfill a specific condition.
+- You can also add a sorting clause here ORDER BY, which sorts alphanumerically. You can use ORDER
+BY column DESC to reverse the order.
+
+## Querying Multiple Tables
+
+- (INNER) JOIN: returns records with matching values  in both tables
+- LEFT (OUTER) JOIN: returns all records from the left  table and only those that match in the right table
+- RIGHT (OUTER) JOIN: returns all records from the  right table and only those that match in the left  table
+- SELF JOIN: similar to a regular join, but one in which  the values of a table are compared with itself
+
+## Querying Multiple Tables
+![](images/joins.png) 
+
+## INNER JOINS
+
+- Basic Syntax:
+```{SQL inner_join}
+  SELECT table1.columnX, table2.columnY  FROM table1
+  INNER JOIN table2 ON table1.column_name =  table2.column_name;
+```
+  
+- Alternative (less efficient) Syntax:
+```{SQL inner_join2}
+  #| echo: true
+  SELECT columnX, columnY  
+  FROM table1, table2
+  WHERE table1.column_name = table2.column_name;
+```
+
+## LEFT/RIGHT JOINS
+
+- LEFT JOIN Syntax:
+```{SQL left_join}
+  SELECT columnX, columnY  FROM table1
+  LEFT JOIN table2	ON table1.column_name
+  = table2.column_name;
+```
+  
+- RIGHT JOIN Syntax:
+```{SQL right_join}
+  SELECT columnX, columnY  FROM table1
+  RIGHT JOIN table2	ON table1.column_name
+  = table2.column_name;
+```
+  
+## Self JOIN
+
+- A self JOIN is useful in certain circumstances. It requires use of an alias using the following syntax:
+
+```{SQL self_jion}
+  #| echo: true
+  SELECT A.columnX, B.columnX
+  FROM table_name A, table_name B  
+  WHERE A.columnX = B.columnX;
+```
+  
 # SQLite in R 
 
 ## What is SQLite?
