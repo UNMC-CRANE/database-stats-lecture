@@ -1,0 +1,552 @@
+---
+title: "Database Use for Biostatistics Lecture"
+subtitle: "Biostats Consulting"
+author: "Jerrod Anzalone"
+date: "October 18, 2023"
+bibliography: references.bib
+format:
+  revealjs:
+    incremental: true   
+    scrollable: true
+    theme: serif
+---
+
+# Introduction
+
+- The objective of this lecture is to introduce the fundamentals of databases, with a focus on SQLite as a lightweight and practical database engine. 
+- SQLite is widely used in various applications, including mobile apps and embedded systems, making it an invaluable tool for anyone working with data [@hipp].
+
+# Introduction
+
+- To follow along with this lecture, please download the entire project repository from GitHub here: https://github.com/UNMC-CRANE/database-stats-lecture
+- Download the entire repository from the main project page then open the `Database lecture.Rproj` file in RStudio to access the code and the `Database lecture.html` file in a web browser to follow along.
+
+# Introduction
+- https://github.com/UNMC-CRANE/database-stats-lecture
+![Download Instructions](images/download_instructions.png)
+
+# What is a Database?
+
+- A database is a structured collection of data that allows for efficient retrieval and manipulation. 
+- They offer a systematic way to store, manage, and retrieve information. 
+- Databases are critical in various sectors, including healthcare and academia, for tasks such as inventory management, patient record-keeping, and research data analysis [@date].
+
+## Why Databases are Important for Biostatisticians
+- Databases serve as an essential tool for biostatisticians for several reasons:
+
+  - Data Integrity: Databases ensure the accuracy and consistency of data, which is vital for statistical analyses.
+
+  - Scalability: As the volume of healthcare data grows, databases can scale to handle large datasets effectively.
+
+## Why Databases are Important for Biostatisticians
+- Databases serve as an essential tool for biostatisticians for several reasons:
+
+  - Query Capability: Sophisticated query languages like SQL allow for intricate data manipulation and retrieval, aiding in more nuanced analyses.
+  
+  - Data Security: Sensitive information, such as patient data, can be securely managed and accessed.
+
+-  By mastering the use of databases, biostatisticians are better equipped to handle the complexities of medical data, thus making more robust and reliable analyses possible.
+
+## Importance for Reproducibility
+- Reproducibility is a cornerstone of biomedical research. Databases contribute to reproducibility in several ways:
+
+  - **Data Versioning:** Databases can keep track of data changes over time, allowing researchers to use specific data versions for their analyses.
+Structured Query Language (SQL): By sharing SQL queries, researchers can exactly replicate data retrieval methods, ensuring that the same subsets of data are used for analyses.
+  - **Metadata Storage**: Additional data about the data, or metadata, can be stored and shared, providing context that aids in reproducibility.
+
+- By utilizing a database, biostatisticians can provide a transparent and replicable roadmap for their data handling procedures, thereby enhancing the integrity of their research.
+
+## Sharing and Replicating Findings
+- Databases also play a crucial role in sharing and replicating findings:
+
+  - **Data Sharing:** Databases can be set up to allow controlled access to external researchers, facilitating broader analyses and scrutiny.
+  - **Uniform Structure:** A well-designed database provides a uniform data structure that makes it easier for other researchers to understand and use the data.
+  - **Open-Source Databases:** The use of open-source databases allows for the free sharing of data and methods, encouraging community contributions and vetting.
+
+-By employing databases, biostatisticians not only make their own research more robust but also contribute to a broader ecosystem of scientific validation.
+
+# Types of Databases
+
+## Relational Databases
+
+- Relational databases are the most commonly used type of database. In a relational database, data is organized into tables with rows and columns. These tables are interconnected through keys, allowing for complex queries and manipulations. Relational databases are extremely versatile and can be used in a myriad of applications, from simple contact management systems to complex EHRs.
+
+## Relational Databases
+```{r}
+#| echo: true
+# Example of a relational database structure in R
+patient_table <- data.frame(
+  ID = c(1, 2, 3),
+  FirstName = c("Alice", "Bob", "Chuck"),
+  LastName = c("Smith", "Sauce", "McGill"),
+  Age = c(25, 30, 22),
+  Sex = c("Female", "Male", NA),
+  Phone = c("123-456", "789-1234", "567-8912"),
+  Email = c("alice@email.com", "bob@email.com", "chuck@email.com")
+)
+print(head(patient_table))
+
+```
+
+## Document-Based Databases
+- In contrast to relational databases, document-based databases are designed to store, manage, and retrieve document-oriented information. 
+- Each 'document' in this type of database is a complex data structure and can contain fields, like in a relational database, but also more complex data types like arrays or nested records. 
+- Document-based databases are particularly useful for storing large volumes of unstructured data.
+
+## Document-Based Databases
+```{r}
+#| echo: true
+# Document-Based Database Document
+document_based_document <- list(
+  ID = 1,
+  FirstName = "Alice",
+  LastName = "Smith",
+  Age = 25,
+  Sex = "Female",
+  Contacts = list(Phone = "123-456", Email = "alice@email.com")
+)
+print(head(document_based_document))
+```
+
+## Key-Value Stores
+- Key-value stores are the simplest form of database where each data item is stored as an attribute name (or 'key'), together with its value. 
+- These databases are highly optimized for operations that retrieve or write data based on a single key. Key-value stores are often used in caching systems and real-time analytics applications.
+
+## Key-Value Stores
+```{r}
+#| echo: true
+# Key-Value Store
+key_value_store <- list(
+  "1" = list(Name = "Alice", Age = 25),
+  "2" = list(Name = "Bob", Age = 30)
+)
+
+print(head(key_value_store))
+```
+
+## Transactional Databases
+- Transactional databases are designed to handle transactions, which are sequences of database operations that are executed as a single unit. 
+- These databases use protocols like two-phase commit to ensure that transactions are processed reliably and are ACID-compliant (Atomicity, Consistency, Isolation, Durability).
+
+## Transactional Databases
+```{r}
+#| echo: true
+# Transactional Database (Simulated as a series of operations)
+transactional_database <- function() {
+  # Start Transaction
+  cat("Start Transaction\n")
+  
+  # Operation 1: Add Record
+  cat("Operation 1: Add Record\n")
+  
+  # Operation 2: Update Record
+  cat("Operation 2: Update Record\n")
+  
+  # Commit Transaction
+  cat("Commit Transaction\n")
+}
+```
+
+# Databasics
+
+- **Database:** A collection of related tables, each table with its own rows and columns
+- A conceptual entity (Lab Order, Lab Result, Demographics) is represented by one table
+- **Attributes** (lab unit or lab value) are represented by one column
+
+# Databasics
+
+- **Columns** contain similar types of information (date and time or name) containing only one type of data (integer, varchar, binary)
+- **Rows** represent one instance of a table entry, such as a lab order or lab result or a single patient for the Demographic table
+
+# Databasics
+
+  ![](images/table1.png)
+
+# Database Structure
+
+## Tables, Records, and Fields
+
+- At the most basic level, databases are composed of tables, which are further broken down into records and fields. 
+- Each table represents a specific entity, like a patient or a medical procedure, and each record within that table is a single instance of that entity. Fields, on the other hand, are individual pieces of data that describe the characteristics of the entity.
+
+## Tables, Records, and Fields
+```{r}
+#| echo: true
+# Example of a table structure in R
+patient_table <- data.frame(
+  PATID = c(1, 2, 3),
+  BIRTH_DATE = c("2000-01-01", "1999-12-31", "1989-02-14"),
+  Sex = c("Female", "Male", NA)
+)
+patient_table$BIRTH_DATE <- as.Date(patient_table$BIRTH_DATE)
+print(patient_table)
+```
+
+# Relational Databasics
+
+# Basics of Relational Databases
+
+## What is a Relational Database?
+
+- A relational database is a type of database that uses a structure called a "table" to organize data into rows and columns. 
+- Each row represents a unique record, and each column represents a field in the record.
+
+## Tables
+
+- Tables hold the data in a relational database. Each table should store data about a particular type of entity. 
+- For instance, a `Patients` table would store data about patients.
+
+## Fields and Records
+
+- Fields are the different pieces of data that are stored for each record in a table. Records are the individual entries in a table.
+
+## Keys
+
+- **Primary key:** a key in a relational database that is unique for each record. 
+  - In the Demographics table, this would be the PATID
+
+- **Foreign Key:** a column or group of columns in a relational database table that provides a link between data in two tables. 
+  - It acts as a cross-reference between tables because it references the primary key of another table, thereby establishing a link between them. 
+  - The PATID from the Demographics table is the most common foreign key across the database.
+
+## Keys
+
+![](images/relationships.png) 
+
+## Relationships
+-  1 to Many (1:M): This should be the norm in any relational database design and is found in all relational database environments. For example, one department has many employees.
+-  Many to Many (M:N): each row in table A can reference many rows in table B, and each row in table B can reference many rows in table A.
+- 1 to 1 (1:1): A one to one (1:1) relationship is the relationship of one entity to only one other entity, and vice versa. It should be rare in any relational database design. The previous diagram is a good example. One patient dies one time, so there will be a one-to-one relationship.
+
+## Structured Query Language (SQL)
+
+- Structured Query Language (SQL) is the de facto language of all Relational Database Management systems.
+- SQL was formalized in 1986 by the American National Standards Institute (ANSI) and the international Organization for Standardization (ISO). 
+- While there are different versions of SQL, they are all built on these standards and are only slightly different in execution [@jamison].
+
+# SQLite in R
+
+## What is SQLite?
+
+- SQLite is a C library that provides a lightweight disk-based database. 
+- It allows access to the database using a nonstandard variant of the SQL query language. 
+- SQLite is popular because it is easy to install and use for lightweight applications, including mobile apps [@hipp].
+
+## Setting up SQLite in R
+
+- To interact with SQLite databases in R, you can use the `RSQLite` package. You can install it using `install.packages("RSQLite")`.
+
+## Setting up SQLite in R
+```{r}
+#| echo: true
+# Load the RSQLite package
+library(RSQLite)
+```
+
+## Creating a Database and Tables
+
+- The first step in working with SQLite in R is to create a new SQLite database. This is done using the dbConnect() function.
+
+## Creating a Database and Tables
+```{r}
+#| echo: true
+# Create a new SQLite database
+con <- dbConnect(SQLite(), dbname = "my_database.sqlite")
+```
+
+## Creating Tables
+
+- Next, let's create a table to store information about patients.
+
+## Creating Tables
+```{r}
+#| echo: true
+# Create a 'Patients' table
+dbExecute(con, "CREATE TABLE IF NOT EXISTS Patients (PatientID INTEGER PRIMARY KEY, Name TEXT, Age INTEGER);")
+```
+
+## Inserting Data
+
+- We can insert data into the Patients table using the dbExecute() function.
+
+## Inserting Data
+```{r}
+#| echo: true
+# Insert data into the 'Patients' table
+dbExecute(con, "INSERT INTO Patients (Name, Age) VALUES ('Alice', 30);")
+dbExecute(con, "INSERT INTO Patients (Name, Age) VALUES ('Bob', 40);")
+```
+
+## Querying Data
+
+- We can use the dbGetQuery() function to retrieve data from the database.
+
+## Querying Data
+```{r}
+#| echo: true
+# Retrieve all records from the 'Patients' table
+result <- dbGetQuery(con, "SELECT * FROM Patients;")
+print(result)
+```
+
+## Querying Data
+- You can also print the query out in SQLite using dbGetQuery():
+
+## Querying Data
+```{r}
+#| echo: true
+# Retrieve all records from the 'Patients' table
+dbGetQuery(con, "SELECT * FROM Patients;")
+```
+
+## Updating and Deleting Data
+
+- SQLite allows for updating and deleting records using the UPDATE and DELETE SQL statements, respectively.
+
+## Updating and Deleting Data
+```{r}
+#| echo: true
+# Update Alice's age to 31
+dbExecute(con, "UPDATE Patients SET Age = 31 WHERE Name = 'Alice';")
+
+# Delete Bob from the database
+dbExecute(con, "DELETE FROM Patients WHERE Name = 'Bob';")
+```
+
+## Adding an Additional Table from an R DataFrame
+
+- One of the powerful features of RSQLite is its ability to directly import R DataFrames into SQLite databases as tables. 
+
+- Let's create an R DataFrame called Encounters and add it to the SQLite database.
+
+## Adding an Additional Table from an R DataFrame
+```{r}
+#| echo: true
+# Create an R DataFrame called 'Encounters'
+Encounters <- data.frame(
+  EncounterID = c(1, 2, 3),
+  PatientID = c(1, 1, 2),
+  EncounterType = c("Emergency", "Follow-up", "Emergency"),
+  EncounterDate = as.Date(c('2023-01-01', '2023-01-15', '2023-01-20'))
+)
+
+# Add the 'Encounters' DataFrame as a table in SQLite database
+dbWriteTable(con, "Encounters", Encounters)
+
+```
+
+## Querying Across Multiple Tables
+
+- In SQLite, you can perform joins to query data across multiple tables. 
+- For instance, to get a list of patients and their corresponding encounters, you could perform an SQL join operation.
+
+## Querying Across Multiple Tables
+```{r}
+#| echo: true
+# Perform a query joining 'Patients' and 'Encounters' tables based on 'PatientID'
+joined_result <- dbGetQuery(con, "SELECT Patients.PatientID, Patients.Name, Encounters.EncounterType, Encounters.EncounterDate FROM Patients JOIN Encounters ON Patients.PatientID = Encounters.PatientID;")
+print(joined_result)
+```
+
+## Deleting a Table
+
+- If you need to remove a table from an SQLite database, you can use the DROP TABLE SQL statement.
+
+## Deleting a Table
+```{r}
+#| echo: true
+# Delete the 'Patients' table from the database
+dbExecute(con, "DROP TABLE Patients;")
+```
+
+## Deleting the Database
+
+- SQLite databases are stored as single disk files.
+
+![SQLite in RStudio](images/sqlite_in_rstudio.png) 
+
+## Deleting the Database
+
+- This is a very lightweight file that can be moved around as needed. Deleting the SQLite database is as simple as removing this file. 
+- However, make sure to first disconnect from the database in R.
+
+## Deleting the Database
+```{r}
+#| echo: true
+# Disconnect from the SQLite database
+dbDisconnect(con)
+
+# Delete the SQLite database file
+file.remove("my_database.sqlite")
+```
+
+# Practical Example Using Synthetic Data
+
+- This section aims to demonstrate how to create a new SQLite database named synthea and populate it with tables generated from all the CSV files in a specific directory. 
+- This is particularly useful for batch importing large datasets into a database [@walkonoski].
+- For this exercise, we will be using a synthetically generated sample of patient data from the open-source tool Synthea: https://synthetichealth.github.io/synthea/.
+
+# Practical Example Using Synthetic Data
+- Before proceeding, make sure you have the following R packages installed. If not, you can install them using install.packages().
+
+# Practical Example Using Synthetic Data
+```{r}
+#| echo: true
+# Required packages
+required_packages <- c("RSQLite", "data.table", "dplyr", "purrr")
+
+# Install missing packages
+# Uncomment the next lines if you need to install packages
+# new_packages <- required_packages[!(required_packages %in% installed.packages()[,"Package"])]
+# if(length(new_packages)) install.packages(new_packages)
+
+# Load the packages
+library(RSQLite)
+library(data.table)
+library(dplyr)
+library(purrr)
+
+
+```
+
+## Step 1: Create a New SQLite Database
+
+- The first step is to create a new SQLite database named synthea.
+
+## Step 1: Create a New SQLite Database
+```{r}
+#| echo: true
+# Create a new SQLite database named 'synthea'
+con <- dbConnect(SQLite(), dbname = "synthea.sqlite")
+```
+
+## Step 2: List All CSV Files in the Directory
+
+- List all the CSV files present in the target directory where your CSV files are stored. 
+- Replace your_directory_path with the actual path to your directory. 
+- I have them stored in the directory /csv in this R project.
+
+## Step 2: List All CSV Files in the Directory
+```{r}
+#| echo: true
+# List all CSV files in the directory
+csv_files <- list.files(path = "csv", pattern = "*.csv", full.names = TRUE)
+```
+
+## Step 3: Import Each CSV File as a Table
+
+- We will use a loop or an apply function to read each CSV file and write it as a new table in the SQLite database.
+
+## Step 3: Import Each CSV File as a Table
+```{r}
+#| echo: true
+# Function to read a CSV file and write it to SQLite database
+import_csv_to_sqlite <- function(csv_file, con) {
+  # Extract table name from file name
+  table_name <- tools::file_path_sans_ext(basename(csv_file))
+  
+  # Use fread to read the CSV file into an R DataFrame
+  df <- fread(csv_file)
+  
+  # Write the DataFrame as a table in SQLite database
+  dbWriteTable(con, table_name, df)
+}
+
+# Import all CSV files into the SQLite database
+walk(csv_files, ~import_csv_to_sqlite(.x, con))
+
+```
+
+## Verification
+
+- After running the above code, you should have an SQLite database named synthea with tables corresponding to each of the CSV files in the directory. 
+- You can verify this by listing the tables in the database.
+
+## Verification
+```{r}
+#| echo: true
+# List all tables in the SQLite database
+dbListTables(con)
+```
+
+## Bonus creation of E-R Diagram
+```{r}
+#| echo: true
+# Load the required library
+# install.packages(visNetwork) # uncommet if necessary
+library(visNetwork)
+
+# Define nodes for the tables with their attributes
+nodes <- data.frame(id = c(1, 2, 3, 4, 5, 6),
+                    label = c("Patients\nPATID\nBIRTH_DATE\nSex",
+                              "Conditions\nPATID\nSTART\nSTOP\nCODE\nDESCRIPTION",
+                              "Encounters\nENCOUNTERID\nSTART\nSTOP\nPATID\nCODE\nDESCRIPTION",
+                              "Medications\nMEDICATIONID\nSTART\nSTOP\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION",
+                              "Observations\nOBSERVATIONID\nDATE\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION\nVALUE",
+                              "Procedures\nPROCEDUREID\nDATE\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION"),
+                    shape = rep("box", 6),
+                    font = rep('16px arial black', 6))
+
+# Define edges to connect the tables based on relationships
+edges <- data.frame(from = c(1, 1, 1, 1, 3, 3, 3, 1),
+                    to = c(2, 3, 4, 5, 6, 4, 5, 6),
+                    arrows = rep("to", 8),
+                    label = c("", "", "", "", "ENCOUNTERID", "ENCOUNTERID", "ENCOUNTERID", "PATID"))
+```
+
+## Bonus creation of E-R Diagram
+- Now let's make an interactive Entity-Relationship Diagram we can use to see how the data is connected between tables. 
+
+## Bonus creation of E-R Diagram
+```{r}
+#| echo: true
+# Create the visNetwork diagram
+visNetwork(nodes, edges) %>%
+  visEdges(arrows = 'to', font = list(size = 14)) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
+  visLayout(randomSeed = 123) # for reproducibility
+```
+
+## Sample Queries from our Synthea DB
+
+- Now we can fiddle around with the tables here as we want. 
+- So if we want to query patients on a specific medication, we can do so:
+
+## Sample Queries from our Synthea DB
+```{r}
+#| echo: true
+dbGetQuery(con, "SELECT * 
+                FROM Medications 
+                WHERE DESCRIPTION LIKE 'Acetaminophen%'
+                LIMIT 100;")
+```
+
+## Sample Queries from our Synthea DB
+
+- Or if we want to pull all the distinct MALE patients on a specific medication, we can also do so:
+
+## Sample Queries from our Synthea DB
+```{r}
+#| echo: true
+dbGetQuery(con, "SELECT * 
+                  FROM PATIENTS 
+                  WHERE GENDER = 'M'
+                  AND ID IN (SELECT DISTINCT PATIENT FROM Medications WHERE DESCRIPTION LIKE 'Acetaminophen%');")
+
+```
+
+## Sample Queries from our Synthea DB
+- We are now done. Disconnect and delete our work thus far (unless you want to keep it for some reason).
+
+## Sample Queries from our Synthea DB
+```{r}
+#| echo: true
+# Disconnect from the SQLite database
+dbDisconnect(con)
+
+# Delete the SQLite database file
+file.remove("synthea.sqlite")
+```
+
+
+# References

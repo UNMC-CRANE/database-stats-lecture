@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Jerrod Anzalone">
+<meta name="dcterms.date" content="2023-10-18">
+
+<title>Database Use for Biostatistics Lecture</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="Database lecture_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Database lecture_files/libs/quarto-html/quarto.js"></script>
+<script src="Database lecture_files/libs/quarto-html/popper.min.js"></script>
+<script src="Database lecture_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Database lecture_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Database lecture_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Database lecture_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Database lecture_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Database lecture_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Database lecture_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="Database lecture_files/libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="Database lecture_files/libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
+<script src="Database lecture_files/libs/vis-9.1.0/vis-network.min.js"></script>
+<script src="Database lecture_files/libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Database Use for Biostatistics Lecture</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jerrod Anzalone </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 18, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The objective of this lecture is to introduce the fundamentals of databases, with a focus on SQLite as a lightweight and practical database engine. SQLite is widely used in various applications, including mobile apps and embedded systems, making it an invaluable tool for anyone working with data <span class="citation" data-cites="hipp">(<a href="#ref-hipp" role="doc-biblioref">Hipp 2020</a>)</span>.</p>
+<p>To follow along with this lecture, please download the entire project repository from GitHub <a href="https://github.com/UNMC-CRANE/database-stats-lecture">here</a>. Download the entire repository from the main project page then open the <code>Database lecture.Rproj</code> file in RStudio to access the code and the <code>Database lecture.html</code> file in a web browser to follow along.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/download_instructions.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Download Instructions</figcaption><p></p>
+</figure>
+</div>
+<section id="what-is-a-database" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-a-database">What is a Database?</h3>
+<p>A database is a structured collection of data that allows for efficient retrieval and manipulation. It offers a systematic way to store, manage, and retrieve information. Databases are critical in various sectors, including healthcare, finance, and academia, for tasks such as inventory management, patient record-keeping, and research data analysis <span class="citation" data-cites="date">(<a href="#ref-date" role="doc-biblioref">Date 2006</a>)</span>.</p>
+</section>
+<section id="why-databases-are-important-for-biostatisticians" class="level3">
+<h3 class="anchored" data-anchor-id="why-databases-are-important-for-biostatisticians">Why Databases are Important for Biostatisticians</h3>
+<p>Databases serve as an essential tool for biostatisticians for several reasons:</p>
+<ul>
+<li><strong>Data Integrity:</strong> Databases ensure the accuracy and consistency of data, which is vital for statistical analyses.</li>
+<li><strong>Scalability:</strong> As the volume of healthcare data grows, databases can scale to handle large datasets effectively.</li>
+<li><strong>Query Capability:</strong> Sophisticated query languages like SQL allow for intricate data manipulation and retrieval, aiding in more nuanced analyses.</li>
+<li><strong>Data Security:</strong> Sensitive information, such as patient data, can be securely managed and accessed.</li>
+</ul>
+<p>By mastering the use of databases, biostatisticians are better equipped to handle the complexities of medical data, thus making more robust and reliable analyses possible.</p>
+</section>
+<section id="importance-for-reproducibility" class="level3">
+<h3 class="anchored" data-anchor-id="importance-for-reproducibility">Importance for Reproducibility</h3>
+<p>Reproducibility is a cornerstone of biomedical research. Databases contribute to reproducibility in several ways:</p>
+<ul>
+<li><strong>Data Versioning:</strong> Databases can keep track of data changes over time, allowing researchers to use specific data versions for their analyses. Structured Query Language (SQL): By sharing SQL queries, researchers can exactly replicate data retrieval methods, ensuring that the same subsets of data are used for analyses.</li>
+<li><strong>Metadata Storage</strong>: Additional data about the data, or metadata, can be stored and shared, providing context that aids in reproducibility.</li>
+</ul>
+<p>By utilizing a database, biostatisticians can provide a transparent and replicable roadmap for their data handling procedures, thereby enhancing the integrity of their research.</p>
+</section>
+<section id="sharing-and-replicating-findings" class="level3">
+<h3 class="anchored" data-anchor-id="sharing-and-replicating-findings">Sharing and Replicating Findings</h3>
+<p>Databases also play a crucial role in sharing and replicating findings:</p>
+<ul>
+<li><strong>Data Sharing:</strong> Databases can be set up to allow controlled access to external researchers, facilitating broader analyses and scrutiny.</li>
+<li><strong>Uniform Structure:</strong> A well-designed database provides a uniform data structure that makes it easier for other researchers to understand and use the data.</li>
+<li><strong>Open-Source Databases:</strong> The use of open-source databases allows for the free sharing of data and methods, encouraging community contributions and vetting.</li>
+</ul>
+<p>By employing databases, biostatisticians not only make their own research more robust but also contribute to a broader ecosystem of scientific validation.</p>
+</section>
+<section id="types-of-databases" class="level3">
+<h3 class="anchored" data-anchor-id="types-of-databases">Types of Databases</h3>
+<ul>
+<li><strong>Relational Databases</strong>
+<ul>
+<li>Relational databases are the most commonly used type of database. In a relational database, data is organized into tables with rows and columns. These tables are interconnected through keys, allowing for complex queries and manipulations. Relational databases are extremely versatile and can be used in a myriad of applications, from simple contact management systems to complex EHRs.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of a relational database structure in R</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>patient_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">FirstName =</span> <span class="fu">c</span>(<span class="st">"Alice"</span>, <span class="st">"Bob"</span>, <span class="st">"Chuck"</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">LastName =</span> <span class="fu">c</span>(<span class="st">"Smith"</span>, <span class="st">"Sauce"</span>, <span class="st">"McGill"</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">22</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sex =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="cn">NA</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Phone =</span> <span class="fu">c</span>(<span class="st">"123-456"</span>, <span class="st">"789-1234"</span>, <span class="st">"567-8912"</span>),</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Email =</span> <span class="fu">c</span>(<span class="st">"alice@email.com"</span>, <span class="st">"bob@email.com"</span>, <span class="st">"chuck@email.com"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(patient_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  ID FirstName LastName Age    Sex    Phone           Email
+1  1     Alice    Smith  25 Female  123-456 alice@email.com
+2  2       Bob    Sauce  30   Male 789-1234   bob@email.com
+3  3     Chuck   McGill  22   &lt;NA&gt; 567-8912 chuck@email.com</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Document-Based Databases</strong>
+<ul>
+<li>In contrast to relational databases, document-based databases are designed to store, manage, and retrieve document-oriented information. Each ‘document’ in this type of database is a complex data structure and can contain fields, like in a relational database, but also more complex data types like arrays or nested records. Document-based databases are particularly useful for storing large volumes of unstructured data.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Document-Based Database Document</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>document_based_document <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">ID =</span> <span class="dv">1</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">FirstName =</span> <span class="st">"Alice"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">LastName =</span> <span class="st">"Smith"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">Age =</span> <span class="dv">25</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sex =</span> <span class="st">"Female"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">Contacts =</span> <span class="fu">list</span>(<span class="at">Phone =</span> <span class="st">"123-456"</span>, <span class="at">Email =</span> <span class="st">"alice@email.com"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Key-Value Stores</strong>
+<ul>
+<li>Key-value stores are the simplest form of database where each data item is stored as an attribute name (or ‘key’), together with its value. These databases are highly optimized for operations that retrieve or write data based on a single key. Key-value stores are often used in caching systems and real-time analytics applications.</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Key-Value Store</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>key_value_store <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1"</span> <span class="ot">=</span> <span class="fu">list</span>(<span class="at">Name =</span> <span class="st">"Alice"</span>, <span class="at">Age =</span> <span class="dv">25</span>),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2"</span> <span class="ot">=</span> <span class="fu">list</span>(<span class="at">Name =</span> <span class="st">"Bob"</span>, <span class="at">Age =</span> <span class="dv">30</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><strong>Transactional Databases</strong>
+<ul>
+<li>Transactional databases are designed to handle transactions, which are sequences of database operations that are executed as a single unit. These databases use protocols like two-phase commit to ensure that transactions are processed reliably and are ACID-compliant (Atomicity, Consistency, Isolation, Durability).</li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Transactional Database (Simulated as a series of operations)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>transactional_database <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Start Transaction</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Start Transaction</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Operation 1: Add Record</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Operation 1: Add Record</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Operation 2: Update Record</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Operation 2: Update Record</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Commit Transaction</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Commit Transaction</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="databasics" class="level3">
+<h3 class="anchored" data-anchor-id="databasics">Databasics</h3>
+<ul>
+<li><strong>Database:</strong> A collection of related tables, each table with its own rows and columns
+<ul>
+<li>A conceptual entity (Lab Order, Lab Result, Demographics) is represented by one table</li>
+<li><strong>Attributes</strong> (lab unit or lab value) are represented by one column</li>
+<li><strong>Columns</strong> contain similar types of information (date and time or name) containing only one type of data (integer, varchar, binary)</li>
+<li><strong>Rows</strong> represent one instance of a table entry, such as a lab order or lab result or a single patient for the Demographic table</li>
+</ul></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/table1.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Demographic Table</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="importance-of-databases" class="level2">
+<h2 class="anchored" data-anchor-id="importance-of-databases">Importance of Databases</h2>
+<p>Databases are integral in various industries, including healthcare, finance, and retail. In academia, databases serve as invaluable tools for research, aiding in data collection and analysis.</p>
+</section>
+<section id="database-structure" class="level1">
+<h1>Database Structure</h1>
+<section id="tables-records-and-fields" class="level2">
+<h2 class="anchored" data-anchor-id="tables-records-and-fields">Tables, Records, and Fields</h2>
+<p>At the most basic level, databases are composed of tables, which are further broken down into records and fields. Each table represents a specific entity, like a patient or a medical procedure, and each record within that table is a single instance of that entity. Fields, on the other hand, are individual pieces of data that describe the characteristics of the entity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of a table structure in R</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>patient_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">PATID =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">BIRTH_DATE =</span> <span class="fu">c</span>(<span class="st">"2000-01-01"</span>, <span class="st">"1999-12-31"</span>, <span class="st">"1989-02-14"</span>),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Sex =</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"Male"</span>, <span class="cn">NA</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>patient_table<span class="sc">$</span>BIRTH_DATE <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(patient_table<span class="sc">$</span>BIRTH_DATE)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(patient_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  PATID BIRTH_DATE    Sex
+1     1 2000-01-01 Female
+2     2 1999-12-31   Male
+3     3 1989-02-14   &lt;NA&gt;</code></pre>
+</div>
+</div>
+<section id="relational-databasics" class="level3">
+<h3 class="anchored" data-anchor-id="relational-databasics">Relational Databasics</h3>
+</section>
+</section>
+</section>
+<section id="basics-of-relational-databases" class="level1">
+<h1>Basics of Relational Databases</h1>
+<section id="what-is-a-relational-database" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-relational-database">What is a Relational Database?</h2>
+<p>A relational database is a type of database that uses a structure called a “table” to organize data into rows and columns. Each row represents a unique record, and each column represents a field in the record.</p>
+<section id="tables" class="level3">
+<h3 class="anchored" data-anchor-id="tables">Tables</h3>
+<p>Tables hold the data in a relational database. Each table should store data about a particular type of entity. For instance, a <code>Patients</code> table might store data about patients.</p>
+</section>
+<section id="fields-and-records" class="level3">
+<h3 class="anchored" data-anchor-id="fields-and-records">Fields and Records</h3>
+<p>Fields are the different pieces of data that are stored for each record in a table. Records are the individual entries in a table.</p>
+</section>
+<section id="keys" class="level3">
+<h3 class="anchored" data-anchor-id="keys">Keys</h3>
+<p>A primary key is a field, or a set of fields, that uniquely identifies each record in a table. For instance, a <code>PatientID</code> field could serve as the primary key in a <code>Patients</code> table.</p>
+<p><strong>Primary key:</strong> a key in a relational database that is unique for each record. In the Demographics table, this would be the PATID</p>
+<p><strong>Foreign Key:</strong> a column or group of columns in a relational database table that provides a link between data in two tables. It acts as a cross-reference between tables because it references the primary key of another table, thereby establishing a link between them. The PATID from the Demographics table is the most common foreign key across the database.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/relationships.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Relationship Overview</figcaption><p></p>
+</figure>
+</div>
+</section>
+<section id="types-of-relationships" class="level3">
+<h3 class="anchored" data-anchor-id="types-of-relationships">Types of Relationships</h3>
+<ul>
+<li><strong>1 to Many (1:M):</strong> This should be the norm in any relational database design and is found in all relational database environments. For example, one department has many employees.</li>
+<li><strong>Many to Many (M:N):</strong> each row in table A can reference many rows in table B, and each row in table B can reference many rows in table A.</li>
+<li><strong>1 to 1 (1:1):</strong> A one to one (1:1) relationship is the relationship of one entity to only one other entity, and vice versa. It should be rare in any relational database design. The previous diagram is a good example. One patient dies one time, so there will be a one-to-one relationship.</li>
+</ul>
+</section>
+<section id="structured-query-language-sql" class="level3">
+<h3 class="anchored" data-anchor-id="structured-query-language-sql">Structured Query Language (SQL)</h3>
+<p>Structured Query Language (SQL) is the de facto language of all Relational Database Management systems. SQL was formalized in 1986 by the American National Standards Institute (ANSI) and the international Organization for Standardization (ISO). While there are different versions of SQL, they are all built on these standards and are only slightly different in execution <span class="citation" data-cites="jamison">(<a href="#ref-jamison" role="doc-biblioref">Jamison 2003</a>)</span>.</p>
+</section>
+</section>
+</section>
+<section id="sqlite-in-r" class="level1">
+<h1>SQLite in R</h1>
+<section id="what-is-sqlite" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-sqlite">What is SQLite?</h2>
+<p>SQLite is a C library that provides a lightweight disk-based database. It allows access to the database using a nonstandard variant of the SQL query language. SQLite is popular because it is easy to install and use for lightweight applications, including mobile apps <span class="citation" data-cites="hipp">(<a href="#ref-hipp" role="doc-biblioref">Hipp 2020</a>)</span>.</p>
+</section>
+<section id="setting-up-sqlite-in-r" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-sqlite-in-r">Setting up SQLite in R</h2>
+<p>To interact with SQLite databases in R, you can use the <code>RSQLite</code> package. You can install it using <code>install.packages("RSQLite")</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the RSQLite package</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-a-database-and-tables" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-database-and-tables">Creating a Database and Tables</h2>
+<p>The first step in working with SQLite in R is to create a new SQLite database. This is done using the dbConnect() function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new SQLite database</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">"my_database.sqlite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="creating-tables" class="level3">
+<h3 class="anchored" data-anchor-id="creating-tables">Creating Tables</h3>
+<p>Next, let’s create a table to store information about patients.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a 'Patients' table</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"CREATE TABLE IF NOT EXISTS Patients </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="st">          (PatientID INTEGER PRIMARY KEY, Name TEXT, Age INTEGER);"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section>
+<section id="inserting-data" class="level3">
+<h3 class="anchored" data-anchor-id="inserting-data">Inserting Data</h3>
+<p>We can insert data into the Patients table using the dbExecute() function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Insert data into the 'Patients' table</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"INSERT INTO Patients (Name, Age) VALUES ('Alice', 30);"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"INSERT INTO Patients (Name, Age) VALUES ('Bob', 40);"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</section>
+<section id="querying-data" class="level3">
+<h3 class="anchored" data-anchor-id="querying-data">Querying Data</h3>
+<p>We can use the dbGetQuery() function to retrieve data from the database.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve all records from the 'Patients' table</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM Patients;"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  PatientID  Name Age
+1         1 Alice  30
+2         2   Bob  40</code></pre>
+</div>
+</div>
+<p>You can also print the query out in SQLite using dbGetQuery():</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve all records from the 'Patients' table</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * FROM Patients;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  PatientID  Name Age
+1         1 Alice  30
+2         2   Bob  40</code></pre>
+</div>
+</div>
+</section>
+<section id="updating-and-deleting-data" class="level3">
+<h3 class="anchored" data-anchor-id="updating-and-deleting-data">Updating and Deleting Data</h3>
+<p>SQLite allows for updating and deleting records using the UPDATE and DELETE SQL statements, respectively.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Update Alice's age to 31</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"UPDATE Patients SET Age = 31 WHERE Name = 'Alice';"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete Bob from the database</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"DELETE FROM Patients WHERE Name = 'Bob';"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+</section>
+<section id="adding-an-additional-table-from-an-r-dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="adding-an-additional-table-from-an-r-dataframe">Adding an Additional Table from an R DataFrame</h3>
+<p>One of the powerful features of RSQLite is its ability to directly import R DataFrames into SQLite databases as tables. Let’s create an R DataFrame called Encounters and add it to the SQLite database.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create an R DataFrame called 'Encounters'</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>Encounters <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">EncounterID =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">PatientID =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">EncounterType =</span> <span class="fu">c</span>(<span class="st">"Emergency"</span>, <span class="st">"Follow-up"</span>, <span class="st">"Emergency"</span>),</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">EncounterDate =</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">'2023-01-01'</span>, <span class="st">'2023-01-15'</span>, <span class="st">'2023-01-20'</span>))</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the 'Encounters' DataFrame as a table in SQLite database</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(con, <span class="st">"Encounters"</span>, Encounters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="querying-across-multiple-tables" class="level3">
+<h3 class="anchored" data-anchor-id="querying-across-multiple-tables">Querying Across Multiple Tables</h3>
+<p>In SQLite, you can perform joins to query data across multiple tables. For instance, to get a list of patients and their corresponding encounters, you could perform an SQL join operation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform a query joining 'Patients' and 'Encounters' tables based on 'PatientID'</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>joined_result <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT Patients.PatientID, </span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="st">                            Patients.Name, </span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="st">                            Encounters.EncounterType, </span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="st">                            Encounters.EncounterDate </span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="st">                            FROM Patients </span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="st">                            JOIN Encounters ON Patients.PatientID = Encounters.PatientID;"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(joined_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  PatientID  Name EncounterType EncounterDate
+1         1 Alice     Emergency         19358
+2         1 Alice     Follow-up         19372</code></pre>
+</div>
+</div>
+</section>
+<section id="deleting-a-table" class="level3">
+<h3 class="anchored" data-anchor-id="deleting-a-table">Deleting a Table</h3>
+<p>If you need to remove a table from an SQLite database, you can use the DROP TABLE SQL statement.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete the 'Patients' table from the database</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(con, <span class="st">"DROP TABLE Patients;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+</section>
+<section id="deleting-the-database" class="level3">
+<h3 class="anchored" data-anchor-id="deleting-the-database">Deleting the Database</h3>
+<p>SQLite databases are stored as single disk files.</p>
+<p><img src="images/sqlite_in_rstudio.png" class="img-fluid" alt="SQLite in RStudio"> This is a very lightweight file that can be moved around as needed. Deleting the SQLite database is as simple as removing this file. However, make sure to first disconnect from the database in R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Disconnect from the SQLite database</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete the SQLite database file</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">file.remove</span>(<span class="st">"my_database.sqlite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="practical-example-using-synthetic-data" class="level1">
+<h1>Practical Example Using Synthetic Data</h1>
+<p>This section aims to demonstrate how to create a new SQLite database named synthea and populate it with tables generated from all the CSV files in a specific directory. This is particularly useful for batch importing large datasets into a database <span class="citation" data-cites="walkonoski">(<a href="#ref-walkonoski" role="doc-biblioref">Walonoski et al. 2018</a>)</span>.</p>
+<p>For this exercise, we will be using a synthetically generated sample of patient data from the open-source tool <a href="https://synthetichealth.github.io/synthea/">Synthea</a>.</p>
+<p>Before proceeding, make sure you have the following R packages installed. If not, you can install them using install.packages().</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Required packages</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>required_packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"RSQLite"</span>, <span class="st">"data.table"</span>, <span class="st">"dplyr"</span>, <span class="st">"purrr"</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Install missing packages</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Uncomment the next lines if you need to install packages</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="co"># new_packages &lt;- required_packages[!(required_packages %in% installed.packages()[,"Package"])]</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="co"># if(length(new_packages)) install.packages(new_packages)</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the packages</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:data.table':
+
+    between, first, last</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'purrr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:data.table':
+
+    transpose</code></pre>
+</div>
+</div>
+<section id="step-1-create-a-new-sqlite-database" class="level2">
+<h2 class="anchored" data-anchor-id="step-1-create-a-new-sqlite-database">Step 1: Create a New SQLite Database</h2>
+<p>The first step is to create a new SQLite database named synthea.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a new SQLite database named 'synthea'</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(), <span class="at">dbname =</span> <span class="st">"synthea.sqlite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="step-2-list-all-csv-files-in-the-directory" class="level2">
+<h2 class="anchored" data-anchor-id="step-2-list-all-csv-files-in-the-directory">Step 2: List All CSV Files in the Directory</h2>
+<p>List all the CSV files present in the target directory where your CSV files are stored. Replace your_directory_path with the actual path to your directory. I have them stored in the directory /csv in this R project.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all CSV files in the directory</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>csv_files <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path =</span> <span class="st">"csv"</span>, <span class="at">pattern =</span> <span class="st">"*.csv"</span>, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="step-3-import-each-csv-file-as-a-table" class="level2">
+<h2 class="anchored" data-anchor-id="step-3-import-each-csv-file-as-a-table">Step 3: Import Each CSV File as a Table</h2>
+<p>We will use a loop or an apply function to read each CSV file and write it as a new table in the SQLite database.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to read a CSV file and write it to SQLite database</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>import_csv_to_sqlite <span class="ot">&lt;-</span> <span class="cf">function</span>(csv_file, con) {</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract table name from file name</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  table_name <span class="ot">&lt;-</span> tools<span class="sc">::</span><span class="fu">file_path_sans_ext</span>(<span class="fu">basename</span>(csv_file))</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use fread to read the CSV file into an R DataFrame</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">fread</span>(csv_file)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Write the DataFrame as a table in SQLite database</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(con, table_name, df)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Import all CSV files into the SQLite database</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="fu">walk</span>(csv_files, <span class="sc">~</span><span class="fu">import_csv_to_sqlite</span>(.x, con))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="verification" class="level3">
+<h3 class="anchored" data-anchor-id="verification">Verification</h3>
+<p>After running the above code, you should have an SQLite database named synthea with tables corresponding to each of the CSV files in the directory. You can verify this by listing the tables in the database.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all tables in the SQLite database</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbListTables</span>(con)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "allergies"           "careplans"           "claims"             
+ [4] "claims_transactions" "conditions"          "devices"            
+ [7] "encounters"          "imaging_studies"     "immunizations"      
+[10] "medications"         "observations"        "organizations"      
+[13] "patients"            "payer_transitions"   "payers"             
+[16] "procedures"          "providers"           "supplies"           </code></pre>
+</div>
+</div>
+</section>
+<section id="bonus-creation-of-e-r-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="bonus-creation-of-e-r-diagram">Bonus creation of E-R Diagram</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the required library</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(visNetwork) # uncommet if necessary</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visNetwork)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Define nodes for the tables with their attributes</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>nodes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>),</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">label =</span> <span class="fu">c</span>(<span class="st">"Patients</span><span class="sc">\n</span><span class="st">PATID</span><span class="sc">\n</span><span class="st">BIRTH_DATE</span><span class="sc">\n</span><span class="st">Sex"</span>,</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Conditions</span><span class="sc">\n</span><span class="st">PATID</span><span class="sc">\n</span><span class="st">START</span><span class="sc">\n</span><span class="st">STOP</span><span class="sc">\n</span><span class="st">CODE</span><span class="sc">\n</span><span class="st">DESCRIPTION"</span>,</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Encounters</span><span class="sc">\n</span><span class="st">ENCOUNTERID</span><span class="sc">\n</span><span class="st">START</span><span class="sc">\n</span><span class="st">STOP</span><span class="sc">\n</span><span class="st">PATID</span><span class="sc">\n</span><span class="st">CODE</span><span class="sc">\n</span><span class="st">DESCRIPTION"</span>,</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Medications</span><span class="sc">\n</span><span class="st">MEDICATIONID</span><span class="sc">\n</span><span class="st">START</span><span class="sc">\n</span><span class="st">STOP</span><span class="sc">\n</span><span class="st">PATID</span><span class="sc">\n</span><span class="st">ENCOUNTERID</span><span class="sc">\n</span><span class="st">CODE</span><span class="sc">\n</span><span class="st">DESCRIPTION"</span>,</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Observations</span><span class="sc">\n</span><span class="st">OBSERVATIONID</span><span class="sc">\n</span><span class="st">DATE</span><span class="sc">\n</span><span class="st">PATID</span><span class="sc">\n</span><span class="st">ENCOUNTERID</span><span class="sc">\n</span><span class="st">CODE</span><span class="sc">\n</span><span class="st">DESCRIPTION</span><span class="sc">\n</span><span class="st">VALUE"</span>,</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Procedures</span><span class="sc">\n</span><span class="st">PROCEDUREID</span><span class="sc">\n</span><span class="st">DATE</span><span class="sc">\n</span><span class="st">PATID</span><span class="sc">\n</span><span class="st">ENCOUNTERID</span><span class="sc">\n</span><span class="st">CODE</span><span class="sc">\n</span><span class="st">DESCRIPTION"</span>),</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">shape =</span> <span class="fu">rep</span>(<span class="st">"box"</span>, <span class="dv">6</span>),</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>                    <span class="at">font =</span> <span class="fu">rep</span>(<span class="st">'16px arial black'</span>, <span class="dv">6</span>))</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Define edges to connect the tables based on relationships</span></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>edges <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">from =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>                    <span class="at">to =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>),</span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>                    <span class="at">arrows =</span> <span class="fu">rep</span>(<span class="st">"to"</span>, <span class="dv">8</span>),</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>                    <span class="at">label =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">""</span>, <span class="st">""</span>, <span class="st">""</span>, <span class="st">"ENCOUNTERID"</span>, <span class="st">"ENCOUNTERID"</span>, <span class="st">"ENCOUNTERID"</span>, <span class="st">"PATID"</span>))</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the visNetwork diagram</span></span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(nodes, edges) <span class="sc">%&gt;%</span></span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visEdges</span>(<span class="at">arrows =</span> <span class="st">'to'</span>, <span class="at">font =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visOptions</span>(<span class="at">highlightNearest =</span> <span class="cn">TRUE</span>, <span class="at">nodesIdSelection =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">123</span>) <span class="co"># for reproducibility</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="visNetwork html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-31a520be54b9fa54c6d9" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-31a520be54b9fa54c6d9">{"x":{"nodes":{"id":[1,2,3,4,5,6],"label":["Patients\nPATID\nBIRTH_DATE\nSex","Conditions\nPATID\nSTART\nSTOP\nCODE\nDESCRIPTION","Encounters\nENCOUNTERID\nSTART\nSTOP\nPATID\nCODE\nDESCRIPTION","Medications\nMEDICATIONID\nSTART\nSTOP\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION","Observations\nOBSERVATIONID\nDATE\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION\nVALUE","Procedures\nPROCEDUREID\nDATE\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION"],"shape":["box","box","box","box","box","box"],"font":["16px arial black","16px arial black","16px arial black","16px arial black","16px arial black","16px arial black"]},"edges":{"from":[1,1,1,1,3,3,3,1],"to":[2,3,4,5,6,4,5,6],"arrows":["to","to","to","to","to","to","to","to"],"label":["","","","","ENCOUNTERID","ENCOUNTERID","ENCOUNTERID","PATID"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"edges":{"arrows":"to","font":{"size":14}},"layout":{"randomSeed":123}},"groups":null,"width":null,"height":null,"idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Now we can fiddle around with the tables here as we want. So if we want to query patients on a specific medication, we can do so:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * </span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="st">                FROM Medications </span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="st">                WHERE DESCRIPTION LIKE 'Acetaminophen%'</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="st">                LIMIT 10;"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        START       STOP                              PATIENT
+1  1562629083 1563838683 2de0b259-6c63-700d-9ac4-edcabff0861a
+2  1685921883 1687131483 2de0b259-6c63-700d-9ac4-edcabff0861a
+3  1695002407 1695693607 2de0b259-6c63-700d-9ac4-edcabff0861a
+4  1553969783 1555265783 cc5fdb8d-297d-0e33-9c5a-6206c223b79b
+5  1414781631 1416250431 61cc48f9-6998-9d7a-84c2-fb62c045cb85
+6  1514663199 1517514399 891d1d6c-7888-d953-1369-515ca099af45
+7  1391267166 1392303966 92fb4bf6-64e8-dce9-b5e0-e4ef60440893
+8  1392303966 1424358366 92fb4bf6-64e8-dce9-b5e0-e4ef60440893
+9  1424358366 1456412766 92fb4bf6-64e8-dce9-b5e0-e4ef60440893
+10 1456412766 1488467166 92fb4bf6-64e8-dce9-b5e0-e4ef60440893
+                                  PAYER                            ENCOUNTER
+1  26aab0cd-6aba-3e1b-ac5b-05c8867e762c 8d23e193-42fe-7eaf-e727-c2081912e321
+2  26aab0cd-6aba-3e1b-ac5b-05c8867e762c f777b032-ca66-4da7-21e4-f60cd8c333ed
+3  26aab0cd-6aba-3e1b-ac5b-05c8867e762c d2e5a3a2-e443-54c4-1d32-83f925ee70ae
+4  df166300-5a78-3502-a46a-832842197811 d93751ea-9b4b-4004-c48e-e160ce71658b
+5  26aab0cd-6aba-3e1b-ac5b-05c8867e762c c9c01b6b-954a-3ece-9242-bdae8fc56998
+6  0133f751-9229-3cfd-815f-b6d4979bdd6a 730ddd7e-f7a8-b6e3-7f0b-3fdb9ab978dc
+7  e03e23c9-4df1-3eb6-a62d-f70f02301496 aaf87de8-8d82-d1d8-b749-1593ad74c3dd
+8  e03e23c9-4df1-3eb6-a62d-f70f02301496 51df3ab4-5785-2d5a-cd37-0216b5ee998b
+9  e03e23c9-4df1-3eb6-a62d-f70f02301496 f14f3cf3-e79b-3e1e-0eea-2b72f8508f26
+10 e03e23c9-4df1-3eb6-a62d-f70f02301496 0e19a59b-ac11-9610-60f2-efdaa2c1ec17
+      CODE
+1   313820
+2   313820
+3  1043400
+4   313782
+5   313782
+6   313820
+7   856987
+8   856987
+9   856987
+10  856987
+                                                                                                         DESCRIPTION
+1                                                                               Acetaminophen 160 MG Chewable Tablet
+2                                                                               Acetaminophen 160 MG Chewable Tablet
+3  Acetaminophen 21.7 MG/ML / Dextromethorphan Hydrobromide 1 MG/ML / doxylamine succinate 0.417 MG/ML Oral Solution
+4                                                                                   Acetaminophen 325 MG Oral Tablet
+5                                                                                   Acetaminophen 325 MG Oral Tablet
+6                                                                               Acetaminophen 160 MG Chewable Tablet
+7                                                     Acetaminophen 300 MG / Hydrocodone Bitartrate 5 MG Oral Tablet
+8                                                     Acetaminophen 300 MG / Hydrocodone Bitartrate 5 MG Oral Tablet
+9                                                     Acetaminophen 300 MG / Hydrocodone Bitartrate 5 MG Oral Tablet
+10                                                    Acetaminophen 300 MG / Hydrocodone Bitartrate 5 MG Oral Tablet
+   BASE_COST PAYER_COVERAGE DISPENSES TOTALCOST REASONCODE
+1     147.07           0.00         1    147.07         NA
+2     198.93           0.00         1    198.93         NA
+3     258.44           0.00         1    258.44   10509002
+4     244.18          94.18         1    244.18   10509002
+5     274.98         274.98         1    274.98   10509002
+6     180.29           0.00         1    180.29         NA
+7     221.55           0.00         3    664.65         NA
+8      58.91           0.00         3    176.73         NA
+9      26.38           0.00         3     79.14         NA
+10    102.08           0.00         3    306.24         NA
+             REASONDESCRIPTION
+1                             
+2                             
+3  Acute bronchitis (disorder)
+4  Acute bronchitis (disorder)
+5  Acute bronchitis (disorder)
+6                             
+7                             
+8                             
+9                             
+10                            </code></pre>
+</div>
+</div>
+<p>Or if we want to pull all the distinct MALE patients on a specific medication, we can also do so:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(con, <span class="st">"SELECT * </span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="st">                  FROM PATIENTS </span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="st">                  WHERE GENDER = 'M'</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="st">                  AND ID IN (SELECT DISTINCT PATIENT FROM Medications WHERE DESCRIPTION LIKE 'Acetaminophen%');"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                     Id BIRTHDATE DEATHDATE         SSN
+1  2de0b259-6c63-700d-9ac4-edcabff0861a     17485        NA 999-17-9786
+2  cc5fdb8d-297d-0e33-9c5a-6206c223b79b     15853        NA 999-69-2035
+3  891d1d6c-7888-d953-1369-515ca099af45     13183        NA 999-41-2600
+4  2216f688-b27d-dc7a-39b5-ba2cfefa6c37      2640        NA 999-53-2311
+5  bfeddd2d-bbed-66b3-262e-9be26962f109      6836        NA 999-60-7021
+6  c700851d-891c-73af-9259-672e4038c127     -8606        NA 999-86-4496
+7  1fa97a23-2794-562e-e8c4-eb71c54ee283      4885        NA 999-94-2926
+8  c6a6d108-fe1f-af13-a82d-914b4ff83d7f     14756        NA 999-16-6097
+9  97caa214-b04c-18e6-64e4-bba76a3d6aff     15187        NA 999-73-8752
+10 feaeaee4-469e-4006-e8b5-a18bc7956f36      6455        NA 999-76-3305
+11 9f994882-47eb-994a-2518-1335566286ae     17012        NA 999-36-6593
+12 a62dbaa9-19ae-a93c-300f-da80d0f2fd23      8120        NA 999-58-5451
+13 ca131414-b5fc-8ca8-3530-18098789a289     -7401     15342 999-37-2380
+14 d971d3b5-0b4b-14aa-6b91-e18e44aaa996     12973        NA 999-98-6377
+15 d7feefea-193a-5d57-c984-e0dc467d3b17      3609        NA 999-15-9631
+16 8f78db1f-07e1-f25a-8d85-615ca694c7f6     12826        NA 999-10-7524
+17 5b8afb71-6e77-2447-297b-dfe821cd8d05     -7401     12651 999-75-2226
+18 31b795d1-07f2-1a03-11a9-d8fa45aa82a7      9425        NA 999-54-6173
+19 ad63c02c-b783-6730-61bf-bab49253686a     -5910     16891 999-29-2666
+20 ec6ddf28-2d8f-2e05-3323-1997b9dcb29d     18126        NA 999-10-4581
+21 4bbafa61-1236-1e94-fb9e-d2481f227043      9764        NA 999-69-8109
+22 cde1728a-5d22-7057-a07b-b8adeb2c22cc      8183        NA 999-91-8026
+23 4d62076f-9a98-620d-2852-8f142de10d63     12578        NA 999-27-2289
+24 b78fc287-8d93-439f-4ffc-2a2c35456fe9     17641        NA 999-66-8821
+25 aedc8636-f3da-7477-9cd7-2041befea28e     15440        NA 999-53-8764
+26 ecec3b30-1c84-6edd-4d10-40f72c072a26     15237        NA 999-94-1256
+27 702f548d-559b-2779-997f-93b0cb0cd132     16272        NA 999-90-9169
+28 f5bf24a8-0b71-da57-0501-4f282bd55e57     -7401        NA 999-43-6533
+29 07b6f3a4-65ff-103c-f283-8f11ac43be54     -2860        NA 999-99-5239
+     DRIVERS   PASSPORT PREFIX       FIRST         LAST SUFFIX MAIDEN MARITAL
+1                                   Lou594    Little434                      
+2                                Joesph309    Leannon79                      
+3  S99930639                    Freddie621  Dietrich576                      
+4  S99952681 X44046122X    Mr.   Darryl392     Klein929                     M
+5  S99926718 X26264225X    Mr. Santiago500     Hilll811                     S
+6  S99985203 X81511228X    Mr.     Dong972    Kohler843                     D
+7  S99962372 X13897083X    Mr.   Freddy176   Collins926                     D
+8                               Delbert384    Waters156                      
+9                                  Gale827    Murray856                      
+10 S99949397 X69081022X    Mr.      Gary33    Walter473                     D
+11                             Demarcus108    Becker968                      
+12 S99926204 X66213408X    Mr.  Chester802    Rippin620                     M
+13 S99933737 X84780606X    Mr.  Wallace647   Gerlach374                     M
+14 S99978729               Mr.    Trent525  Rodriguez71                      
+15 S99931324 X72190123X    Mr.   Junior695     Mertz280                     D
+16 S99961136               Mr. Gilberto712   Schultz619                      
+17 S99919528  X3642299X    Mr.      Sam879   Kerluke267                     M
+18 S99985010 X11462942X    Mr.   Rashad361   Watsica258                      
+19 S99917285 X79081060X    Mr.  Raymundo71     Hilll811                     S
+20                                Felix524    Senger904                      
+21 S99992981 X40864363X    Mr.   Barney639      Yost751                      
+22 S99971286 X70540146X    Mr.  Sherman440 Ankunding277                     M
+23 S99932431               Mr.  Norbert530     Terry864                      
+24                               Alfredo17    Naranjo39                      
+25                               Dexter530    Willms744                      
+26                             Stanford577 Aufderhar910                      
+27                                 Gale827      Schoen8                      
+28 S99984661 X83713035X    Mr. Pasquale620    Miller503                     M
+29 S99956630 X26723926X    Mr.   Merlin721   Kuvalis369     MD              D
+    RACE   ETHNICITY GENDER                     BIRTHPLACE
+1  white nonhispanic      M            Omaha  Nebraska  US
+2  white nonhispanic      M        Newcastle  Nebraska  US
+3  white nonhispanic      M           Neligh  Nebraska  US
+4  black nonhispanic      M        Papillion  Nebraska  US
+5  white nonhispanic      M South Sioux City  Nebraska  US
+6  white nonhispanic      M           Chalco  Nebraska  US
+7  white nonhispanic      M          Kearney  Nebraska  US
+8  white nonhispanic      M         Bellevue  Nebraska  US
+9  white nonhispanic      M            Blair  Nebraska  US
+10 white nonhispanic      M           Pilger  Nebraska  US
+11 white nonhispanic      M          Hickman  Nebraska  US
+12 white nonhispanic      M         Lakeview  Nebraska  US
+13 white    hispanic      M            Omaha  Nebraska  US
+14 white nonhispanic      M         Ogallala  Nebraska  US
+15 white nonhispanic      M          Milford  Nebraska  US
+16 white nonhispanic      M          Lincoln  Nebraska  US
+17 white    hispanic      M           Minden  Nebraska  US
+18 white    hispanic      M           Gering  Nebraska  US
+19 white nonhispanic      M           Friend  Nebraska  US
+20 white nonhispanic      M          Norfolk  Nebraska  US
+21 white    hispanic      M            Omaha  Nebraska  US
+22 white nonhispanic      M            Omaha  Nebraska  US
+23 white nonhispanic      M          Lincoln  Nebraska  US
+24 white    hispanic      M   Mexico City  Mexico City  MX
+25 white nonhispanic      M          Lincoln  Nebraska  US
+26 white nonhispanic      M            Omaha  Nebraska  US
+27 white nonhispanic      M          Lincoln  Nebraska  US
+28 white    hispanic      M         Sheridan  Nebraska  US
+29 white nonhispanic      M            Omaha  Nebraska  US
+                            ADDRESS       CITY    STATE           COUNTY  FIPS
+1             974 Kunde Burg Apt 79      Omaha Nebraska   Douglas County 31055
+2       521 Halvorson Alley Unit 47   Columbus Nebraska    Platte County 31141
+3                  649 Lesch Avenue      Omaha Nebraska   Douglas County 31153
+4               809 Botsford Meadow      Omaha Nebraska   Douglas County 31055
+5                   592 Weber Grove      Omaha Nebraska   Douglas County 31055
+6           838 Pfannerstill Tunnel     Auburn Nebraska    Nemaha County 31127
+7     249 Eichmann Landing Suite 65    Lincoln Nebraska Lancaster County 31109
+8              137 Gerhold Junction      Crete Nebraska    Saline County 31151
+9                      127 Feil Bay      Spade Nebraska      Knox County    NA
+10 1021 Wilderman Boulevard Unit 33    Lincoln Nebraska Lancaster County 31109
+11      850 Herzog Esplanade Apt 78   Columbus Nebraska    Platte County 31141
+12        436 Herzog Tunnel Unit 91      Omaha Nebraska   Douglas County 31055
+13                634 Luettgen Walk      Omaha Nebraska   Douglas County 31055
+14                 884 Torp Orchard    Lincoln Nebraska Lancaster County 31109
+15               888 Ziemann Center    Lincoln Nebraska Lancaster County 31109
+16                  586 Cremin Lock  Papillion Nebraska     Sarpy County 31153
+17          955 Waters Rapid Apt 86      Omaha Nebraska   Douglas County 31055
+18                  481 Mante Trail   Bellevue Nebraska     Sarpy County 31153
+19             783 Beahan Stravenue  Ainsworth Nebraska     Brown County 31017
+20                   477 Hyatt Gate    Lincoln Nebraska Lancaster County 31109
+21         770 Will Passage Unit 84  Papillion Nebraska     Sarpy County 31153
+22      796 Spinka Esplanade Apt 40 Gothenburg Nebraska    Dawson County 31047
+23    487 Gottlieb Trailer Suite 81      Omaha Nebraska   Douglas County 31055
+24             255 Metz Mews Apt 24       Waco Nebraska      York County 31185
+25        179 Corwin Rapid Suite 59    Lincoln Nebraska Lancaster County 31109
+26             617 Labadie Crossing        Ord Nebraska    Valley County 31175
+27                1025 Watsica Gate   Bellevue Nebraska     Sarpy County 31153
+28       846 Bechtelar Rest Unit 82      Omaha Nebraska   Douglas County 31055
+29           883 Runolfsdottir Road   Columbus Nebraska    Platte County 31141
+     ZIP      LAT        LON HEALTHCARE_EXPENSES HEALTHCARE_COVERAGE INCOME
+1  68114 41.28058  -95.94094            11371.12                0.00  86188
+2  68601 41.48527  -97.38583             1435.45            14351.34  22017
+3  68157 41.21922  -95.95941            23465.86              275.72  47297
+4  68154 41.25389  -96.15167            81264.57             3052.99  84911
+5  68107 41.29421  -96.20077            66590.86            34011.94  47545
+6  68305 40.36534  -95.88726           195740.29           565049.42  27647
+7  68526 40.93522  -96.68012            63400.65                0.00 118835
+8  68333 40.63846  -96.91843            46217.78            45847.44 124622
+9      0 42.62153  -97.90835            39904.70                0.00  68583
+10 68521 40.69102  -96.78423            73799.00                0.00  85583
+11 68601 41.46893  -97.38312            10571.53              922.70  56327
+12 68130 41.21671  -96.06093            63714.53           171540.42  55867
+13 68111 41.25586  -95.97228           164518.88           169026.92  38893
+14 68504 40.76999  -96.62152            65211.01           672748.00 123829
+15 68503 40.73858  -96.65634            75924.75            14298.76 161569
+16 68046 41.12813  -96.00020             2700.00            32944.23  29583
+17 68118 41.25859  -96.00258           102490.30           131668.23  38893
+18 68133 41.16322  -95.88704            14513.65           968894.56  21796
+19 69210 42.32205  -99.89476           363286.88            58984.31  81395
+20 68514 40.74158  -96.62433             9013.71                0.00 188943
+21 68157 41.06783  -95.98432            31980.13            36357.40  48501
+22 69138 40.90435 -100.12568           134709.47           316022.93  61684
+23 68122 41.34639  -96.13498            40245.80                0.00  79314
+24 68460 40.89417  -97.42915              750.00            13404.49  26433
+25 68512 40.76054  -96.75255            18122.32                0.00  67462
+26 68862 41.60164  -98.90626            18172.68             3133.84  47068
+27 68147 41.06647  -95.94920            10318.23             3913.78  54902
+28 68111 41.32460  -96.27703           374404.78           157471.04  38893
+29 68601 41.42530  -97.39204           135224.05                0.00 116501</code></pre>
+</div>
+</div>
+<p>We are now done. Disconnect and delete our work thus far (unless you want to keep it for some reason).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Disconnect from the SQLite database</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Delete the SQLite database file</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="fu">file.remove</span>(<span class="st">"synthea.sqlite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
+
+</section>
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-date" class="csl-entry" role="doc-biblioentry">
+Date, CJ. 2006. <em>An Introduction to Database Systems</em>. Pearson Education India.
+</div>
+<div id="ref-hipp" class="csl-entry" role="doc-biblioentry">
+Hipp, Richard D. 2020. <span>“SQLite, 2020.”</span> <em>URL Https://Www.sqlite.org/Index. Html</em>, 35.
+</div>
+<div id="ref-jamison" class="csl-entry" role="doc-biblioentry">
+Jamison, D Curtis. 2003. <span>“Structured Query Language (SQL) Fundamentals.”</span> <em>Current Protocols in Bioinformatics</em>, no. 1: 9–2.
+</div>
+<div id="ref-walkonoski" class="csl-entry" role="doc-biblioentry">
+Walonoski, Jason, Mark Kramer, Joseph Nichols, Andre Quina, Chris Moesel, Dylan Hall, Carlton Duffett, Kudakwashe Dube, Thomas Gallagher, and Scott McLachlan. 2018. <span>“Synthea: An Approach, Method, and Software Mechanism for Generating Synthetic Patients and the Synthetic Electronic Health Care Record.”</span> <em>Journal of the American Medical Informatics Association</em> 25 (3): 230–38.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp(/^(?:http:|https:)\/\/www\.quarto\.org\/custom/);
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+    var links = window.document.querySelectorAll('a:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          // default icon
+          link.classList.add("external");
+      }
+    }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
