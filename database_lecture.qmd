@@ -1,7 +1,7 @@
 ---
 title: "Database Lecture"
 author: "Jerrod Anzalone"
-date: "October 18, 2023"
+date: "October 23, 2024"
 bibliography: references.bib
 format: pptx
 ---
@@ -16,13 +16,9 @@ A database is a structured collection of data that allows for efficient retrieva
 
 ### Databasics
 
-**Database:** A collection of related tables, each table with its own rows and columns 
-A conceptual entity (Lab Order, Lab Result, Demographics) is represented by one table 
-***Attributes*** (lab unit or lab value) are represented by one column 
+**Database:** A collection of related tables, each table with its own rows and columns A conceptual entity (Lab Order, Lab Result, Demographics) is represented by one table ***Attributes*** (lab unit or lab value) are represented by one column
 
-Columns contain similar types of information (date and time or name) containing only one type of data (integer, varchar, binary)
-Rows represent one instance of a table entry, such as a lab order or lab result or a single patient for the Demographic table
-
+Columns contain similar types of information (date and time or name) containing only one type of data (integer, varchar, binary) Rows represent one instance of a table entry, such as a lab order or lab result or a single patient for the Demographic table
 
 When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
 
