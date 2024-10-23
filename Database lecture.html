@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Jerrod Anzalone">
-<meta name="dcterms.date" content="2023-10-18">
+<meta name="dcterms.date" content="2024-10-23">
 
 <title>Database Use for Biostatistics Lecture</title>
 <style>
@@ -117,7 +117,8 @@ div.csl-indent {
 <script src="Database lecture_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="Database lecture_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Database lecture_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script src="Database lecture_files/libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="Database lecture_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="Database lecture_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="Database lecture_files/libs/vis-9.1.0/vis-network.min.css" rel="stylesheet">
 <script src="Database lecture_files/libs/vis-9.1.0/vis-network.min.js"></script>
 <script src="Database lecture_files/libs/visNetwork-binding-2.1.2/visNetwork.js"></script>
@@ -150,7 +151,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 18, 2023</p>
+      <p class="date">October 23, 2024</p>
     </div>
   </div>
   
@@ -249,10 +250,9 @@ div.csl-indent {
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><strong>Key-Value Stores</strong>
+<li><p><strong>Key-Value Stores</strong></p>
 <ul>
 <li>Key-value stores are the simplest form of database where each data item is stored as an attribute name (or ‘key’), together with its value. These databases are highly optimized for operations that retrieve or write data based on a single key. Key-value stores are often used in caching systems and real-time analytics applications.</li>
-</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Key-Value Store</span></span>
@@ -260,9 +260,8 @@ div.csl-indent {
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"1"</span> <span class="ot">=</span> <span class="fu">list</span>(<span class="at">Name =</span> <span class="st">"Alice"</span>, <span class="at">Age =</span> <span class="dv">25</span>),</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2"</span> <span class="ot">=</span> <span class="fu">list</span>(<span class="at">Name =</span> <span class="st">"Bob"</span>, <span class="at">Age =</span> <span class="dv">30</span>)</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ul>
-<li><strong>Transactional Databases</strong>
+</div></li>
+<li><p><strong>Transactional Databases</strong></p>
 <ul>
 <li>Transactional databases are designed to handle transactions, which are sequences of database operations that are executed as a single unit. These databases use protocols like two-phase commit to ensure that transactions are processed reliably and are ACID-compliant (Atomicity, Consistency, Isolation, Durability).</li>
 </ul></li>
@@ -774,8 +773,8 @@ Attaching package: 'purrr'</code></pre>
 <span id="cb55-25"><a href="#cb55-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visOptions</span>(<span class="at">highlightNearest =</span> <span class="cn">TRUE</span>, <span class="at">nodesIdSelection =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb55-26"><a href="#cb55-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">123</span>) <span class="co"># for reproducibility</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="visNetwork html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7147400f633b04a2f58e" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-7147400f633b04a2f58e">{"x":{"nodes":{"id":[1,2,3,4,5,6],"label":["Patients\nPATID\nBIRTH_DATE\nSex","Conditions\nPATID\nSTART\nSTOP\nCODE\nDESCRIPTION","Encounters\nENCOUNTERID\nSTART\nSTOP\nPATID\nCODE\nDESCRIPTION","Medications\nMEDICATIONID\nSTART\nSTOP\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION","Observations\nOBSERVATIONID\nDATE\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION\nVALUE","Procedures\nPROCEDUREID\nDATE\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION"],"shape":["box","box","box","box","box","box"],"font":["16px arial black","16px arial black","16px arial black","16px arial black","16px arial black","16px arial black"]},"edges":{"from":[1,1,1,1,3,3,3,1],"to":[2,3,4,5,6,4,5,6],"arrows":["to","to","to","to","to","to","to","to"],"label":["","","","","ENCOUNTERID","ENCOUNTERID","ENCOUNTERID","PATID"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"edges":{"arrows":"to","font":{"size":14}},"layout":{"randomSeed":123}},"groups":null,"width":null,"height":null,"idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
+<div class="visNetwork html-widget html-fill-item" id="htmlwidget-14d866ece00dbaca706c" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-14d866ece00dbaca706c">{"x":{"nodes":{"id":[1,2,3,4,5,6],"label":["Patients\nPATID\nBIRTH_DATE\nSex","Conditions\nPATID\nSTART\nSTOP\nCODE\nDESCRIPTION","Encounters\nENCOUNTERID\nSTART\nSTOP\nPATID\nCODE\nDESCRIPTION","Medications\nMEDICATIONID\nSTART\nSTOP\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION","Observations\nOBSERVATIONID\nDATE\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION\nVALUE","Procedures\nPROCEDUREID\nDATE\nPATID\nENCOUNTERID\nCODE\nDESCRIPTION"],"shape":["box","box","box","box","box","box"],"font":["16px arial black","16px arial black","16px arial black","16px arial black","16px arial black","16px arial black"]},"edges":{"from":[1,1,1,1,3,3,3,1],"to":[2,3,4,5,6,4,5,6],"arrows":["to","to","to","to","to","to","to","to"],"label":["","","","","ENCOUNTERID","ENCOUNTERID","ENCOUNTERID","PATID"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot"},"manipulation":{"enabled":false},"edges":{"arrows":"to","font":{"size":14}},"layout":{"randomSeed":123}},"groups":null,"width":null,"height":null,"idselection":{"enabled":true,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)","highlight":false},"main":null,"submain":null,"footer":null,"background":"rgba(0, 0, 0, 0)","highlight":{"enabled":true,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":false,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Now we can fiddle around with the tables here as we want. So if we want to query patients on a specific medication, we can do so:</p>
@@ -1012,7 +1011,7 @@ Attaching package: 'purrr'</code></pre>
 29 68601 41.42530  -97.39204           135224.05                0.00 116501</code></pre>
 </div>
 </div>
-<p>We are now done. Disconnect and delete our work thus far (unless you want to keep it for some reason).</p>
+<p>We are now done with our simple example. Disconnect and delete our work thus far (unless you want to keep it for some reason).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Disconnect from the SQLite database</span></span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span>
@@ -1023,6 +1022,7 @@ Attaching package: 'purrr'</code></pre>
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
+<p>The last exercise is to work through some practical examples using a more complicated synthetic dataset, generated using <a href="https://synthea.mitre.org/">Synthea</a>. Please open <a href="./sqlite_exercises_synthea.R">sqlite_exercises_synthea</a> to complete some additional exercises. You may also use tools like <a href="https://sqlitebrowser.org/">DB Browser for SQLite</a> to query against your newly created database.</p>
 
 </section>
 </section>

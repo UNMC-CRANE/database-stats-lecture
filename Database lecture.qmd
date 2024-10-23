@@ -1,7 +1,7 @@
 ---
 title: "Database Use for Biostatistics Lecture"
 author: "Jerrod Anzalone"
-date: "October 18, 2023"
+date: "October 23, 2024"
 bibliography: references.bib
 format:
   html:
@@ -14,8 +14,7 @@ format:
 
 The objective of this lecture is to introduce the fundamentals of databases, with a focus on SQLite as a lightweight and practical database engine. SQLite is widely used in various applications, including mobile apps and embedded systems, making it an invaluable tool for anyone working with data [@hipp].
 
-To follow along with this lecture, please download the entire project repository from GitHub [here](https://github.com/UNMC-CRANE/database-stats-lecture). 
-Download the entire repository from the main project page then open the `Database lecture.Rproj` file in RStudio to access the code and the `Database lecture.html` file in a web browser to follow along.
+To follow along with this lecture, please download the entire project repository from GitHub [here](https://github.com/UNMC-CRANE/database-stats-lecture). Download the entire repository from the main project page then open the `Database lecture.Rproj` file in RStudio to access the code and the `Database lecture.html` file in a web browser to follow along.
 
 ![Download Instructions](images/download_instructions.png)
 
@@ -24,37 +23,39 @@ Download the entire repository from the main project page then open the `Databas
 A database is a structured collection of data that allows for efficient retrieval and manipulation. It offers a systematic way to store, manage, and retrieve information. Databases are critical in various sectors, including healthcare, finance, and academia, for tasks such as inventory management, patient record-keeping, and research data analysis [@date].
 
 ### Why Databases are Important for Biostatisticians
+
 Databases serve as an essential tool for biostatisticians for several reasons:
 
-  - **Data Integrity:** Databases ensure the accuracy and consistency of data, which is vital for statistical analyses.
-  - **Scalability:** As the volume of healthcare data grows, databases can scale to handle large datasets effectively.
-  - **Query Capability:** Sophisticated query languages like SQL allow for intricate data manipulation and retrieval, aiding in more nuanced analyses.
-  - **Data Security:** Sensitive information, such as patient data, can be securely managed and accessed.
+-   **Data Integrity:** Databases ensure the accuracy and consistency of data, which is vital for statistical analyses.
+-   **Scalability:** As the volume of healthcare data grows, databases can scale to handle large datasets effectively.
+-   **Query Capability:** Sophisticated query languages like SQL allow for intricate data manipulation and retrieval, aiding in more nuanced analyses.
+-   **Data Security:** Sensitive information, such as patient data, can be securely managed and accessed.
 
 By mastering the use of databases, biostatisticians are better equipped to handle the complexities of medical data, thus making more robust and reliable analyses possible.
 
 ### Importance for Reproducibility
+
 Reproducibility is a cornerstone of biomedical research. Databases contribute to reproducibility in several ways:
 
-  - **Data Versioning:** Databases can keep track of data changes over time, allowing researchers to use specific data versions for their analyses.
-Structured Query Language (SQL): By sharing SQL queries, researchers can exactly replicate data retrieval methods, ensuring that the same subsets of data are used for analyses.
-  - **Metadata Storage**: Additional data about the data, or metadata, can be stored and shared, providing context that aids in reproducibility.
+-   **Data Versioning:** Databases can keep track of data changes over time, allowing researchers to use specific data versions for their analyses. Structured Query Language (SQL): By sharing SQL queries, researchers can exactly replicate data retrieval methods, ensuring that the same subsets of data are used for analyses.
+-   **Metadata Storage**: Additional data about the data, or metadata, can be stored and shared, providing context that aids in reproducibility.
 
 By utilizing a database, biostatisticians can provide a transparent and replicable roadmap for their data handling procedures, thereby enhancing the integrity of their research.
 
 ### Sharing and Replicating Findings
+
 Databases also play a crucial role in sharing and replicating findings:
 
-  - **Data Sharing:** Databases can be set up to allow controlled access to external researchers, facilitating broader analyses and scrutiny.
-  - **Uniform Structure:** A well-designed database provides a uniform data structure that makes it easier for other researchers to understand and use the data.
-  - **Open-Source Databases:** The use of open-source databases allows for the free sharing of data and methods, encouraging community contributions and vetting.
+-   **Data Sharing:** Databases can be set up to allow controlled access to external researchers, facilitating broader analyses and scrutiny.
+-   **Uniform Structure:** A well-designed database provides a uniform data structure that makes it easier for other researchers to understand and use the data.
+-   **Open-Source Databases:** The use of open-source databases allows for the free sharing of data and methods, encouraging community contributions and vetting.
 
 By employing databases, biostatisticians not only make their own research more robust but also contribute to a broader ecosystem of scientific validation.
 
-
 ### Types of Databases
-* **Relational Databases**
-  + Relational databases are the most commonly used type of database. In a relational database, data is organized into tables with rows and columns. These tables are interconnected through keys, allowing for complex queries and manipulations. Relational databases are extremely versatile and can be used in a myriad of applications, from simple contact management systems to complex EHRs.
+
+-   **Relational Databases**
+    -   Relational databases are the most commonly used type of database. In a relational database, data is organized into tables with rows and columns. These tables are interconnected through keys, allowing for complex queries and manipulations. Relational databases are extremely versatile and can be used in a myriad of applications, from simple contact management systems to complex EHRs.
 
 ```{r}
 # Example of a relational database structure in R
@@ -70,8 +71,8 @@ patient_table <- data.frame(
 print(patient_table)
 ```
 
-* **Document-Based Databases**
-  + In contrast to relational databases, document-based databases are designed to store, manage, and retrieve document-oriented information. Each 'document' in this type of database is a complex data structure and can contain fields, like in a relational database, but also more complex data types like arrays or nested records. Document-based databases are particularly useful for storing large volumes of unstructured data.
+-   **Document-Based Databases**
+    -   In contrast to relational databases, document-based databases are designed to store, manage, and retrieve document-oriented information. Each 'document' in this type of database is a complex data structure and can contain fields, like in a relational database, but also more complex data types like arrays or nested records. Document-based databases are particularly useful for storing large volumes of unstructured data.
 
 ```{r}
 # Document-Based Database Document
@@ -85,18 +86,21 @@ document_based_document <- list(
 )
 ```
 
-* **Key-Value Stores**
-  + Key-value stores are the simplest form of database where each data item is stored as an attribute name (or 'key'), together with its value. These databases are highly optimized for operations that retrieve or write data based on a single key. Key-value stores are often used in caching systems and real-time analytics applications.
-```{r}
-# Key-Value Store
-key_value_store <- list(
-  "1" = list(Name = "Alice", Age = 25),
-  "2" = list(Name = "Bob", Age = 30)
-)
-```
+-   **Key-Value Stores**
 
-* **Transactional Databases**
-  + Transactional databases are designed to handle transactions, which are sequences of database operations that are executed as a single unit. These databases use protocols like two-phase commit to ensure that transactions are processed reliably and are ACID-compliant (Atomicity, Consistency, Isolation, Durability).
+    -   Key-value stores are the simplest form of database where each data item is stored as an attribute name (or 'key'), together with its value. These databases are highly optimized for operations that retrieve or write data based on a single key. Key-value stores are often used in caching systems and real-time analytics applications.
+
+    ```{r}
+    # Key-Value Store
+    key_value_store <- list(
+      "1" = list(Name = "Alice", Age = 25),
+      "2" = list(Name = "Bob", Age = 30)
+    )
+    ```
+
+-   **Transactional Databases**
+
+    -   Transactional databases are designed to handle transactions, which are sequences of database operations that are executed as a single unit. These databases use protocols like two-phase commit to ensure that transactions are processed reliably and are ACID-compliant (Atomicity, Consistency, Isolation, Durability).
 
 ```{r}
 # Transactional Database (Simulated as a series of operations)
@@ -117,14 +121,13 @@ transactional_database <- function() {
 
 ### Databasics
 
-* **Database:** A collection of related tables, each table with its own rows and columns 
-  + A conceptual entity (Lab Order, Lab Result, Demographics) is represented by one table 
-  + **Attributes** (lab unit or lab value) are represented by one column 
-  + **Columns** contain similar types of information (date and time or name) containing only one type of data (integer, varchar, binary)
-  + **Rows** represent one instance of a table entry, such as a lab order or lab result or a single patient for the Demographic table
+-   **Database:** A collection of related tables, each table with its own rows and columns
+    -   A conceptual entity (Lab Order, Lab Result, Demographics) is represented by one table
+    -   **Attributes** (lab unit or lab value) are represented by one column
+    -   **Columns** contain similar types of information (date and time or name) containing only one type of data (integer, varchar, binary)
+    -   **Rows** represent one instance of a table entry, such as a lab order or lab result or a single patient for the Demographic table
 
 ![Demographic Table](images/table1.png)
-
 
 ## Importance of Databases
 
@@ -149,7 +152,7 @@ print(patient_table)
 
 ### Relational Databasics
 
-# Basics of Relational Databases 
+# Basics of Relational Databases
 
 ## What is a Relational Database?
 
@@ -161,53 +164,52 @@ Tables hold the data in a relational database. Each table should store data abou
 
 ### Fields and Records
 
-Fields are the different pieces of data that are stored for each record in a table. Records are the individual entries in a table. 
+Fields are the different pieces of data that are stored for each record in a table. Records are the individual entries in a table.
 
 ### Keys
 
 A primary key is a field, or a set of fields, that uniquely identifies each record in a table. For instance, a `PatientID` field could serve as the primary key in a `Patients` table.
 
-
 **Primary key:** a key in a relational database that is unique for each record. In the Demographics table, this would be the PATID
 
-**Foreign Key:** a column or group of columns in a relational database table that provides a link between data in two tables. It acts as a cross-reference between tables because it references the primary key of another table, thereby establishing a link between them. The PATID from the Demographics table is the most common foreign key across the database. 
+**Foreign Key:** a column or group of columns in a relational database table that provides a link between data in two tables. It acts as a cross-reference between tables because it references the primary key of another table, thereby establishing a link between them. The PATID from the Demographics table is the most common foreign key across the database.
 
 ![Relationship Overview](images/relationships.png)
 
 ### Types of Relationships
 
-* **1 to Many (1:M):** This should be the norm in any relational database design and is found in all relational database environments. For example, one department has many employees.
-* **Many to Many (M:N):** each row in table A can reference many rows in table B, and each row in table B can reference many rows in table A. 
-* **1 to 1 (1:1):** A one to one (1:1) relationship is the relationship of one entity to only one other entity, and vice versa. It should be rare in any relational database design. The previous diagram is a good example. One patient dies one time, so there will be a one-to-one relationship.
+-   **1 to Many (1:M):** This should be the norm in any relational database design and is found in all relational database environments. For example, one department has many employees.
+-   **Many to Many (M:N):** each row in table A can reference many rows in table B, and each row in table B can reference many rows in table A.
+-   **1 to 1 (1:1):** A one to one (1:1) relationship is the relationship of one entity to only one other entity, and vice versa. It should be rare in any relational database design. The previous diagram is a good example. One patient dies one time, so there will be a one-to-one relationship.
 
 ### Structured Query Language (SQL)
 
 Structured Query Language (SQL) is the de facto language of all Relational Database Management systems. SQL was formalized in 1986 by the American National Standards Institute (ANSI) and the international Organization for Standardization (ISO). While there are different versions of SQL, they are all built on these standards and are only slightly different in execution [@jamison].
 
-
 ## THE MIGHTY SELECT STATEMENT
-- Basic Syntax:
 
-  ```{SQL}
-  #| echo: true
-  SELECT column(s)
-  FROM table(s)
-  WHERE condition(s);
-  ```
-  
-- The symbol * means all columns in SQL. 
+-   Basic Syntax:
 
-- To query all columns and all rows in a table with no filters or conditions, use the following syntax:
+    ```{SQL}
+    #| echo: true
+    SELECT column(s)
+    FROM table(s)
+    WHERE condition(s);
+    ```
 
-  ```{SQL}
-  #| echo: true
-  SELECT *
-  FROM table;
-  ```
-  
+-   The symbol \* means all columns in SQL.
+
+-   To query all columns and all rows in a table with no filters or conditions, use the following syntax:
+
+    ```{SQL}
+    #| echo: true
+    SELECT *
+    FROM table;
+    ```
+
 ## Functions in SQL
 
-- The COUNT() function returns the number of rows that matches a specified criterion.
+-   The COUNT() function returns the number of rows that matches a specified criterion.
 
 ```{SQL COUNT}
   SELECT COUNT(column)
@@ -215,7 +217,7 @@ Structured Query Language (SQL) is the de facto language of all Relational Datab
   WHERE condition;
 ```
 
-- The AVG() function returns the average value of a numeric column.
+-   The AVG() function returns the average value of a numeric column.
 
 ```{SQL AVG}
   SELECT AVG(column)
@@ -223,7 +225,7 @@ Structured Query Language (SQL) is the de facto language of all Relational Datab
   WHERE condition;
 ```
 
-- The SUM() function returns the total sum of a numeric column.
+-   The SUM() function returns the total sum of a numeric column.
 
 ```{SQL SUM}
   SELECT SUM(column)
@@ -233,7 +235,7 @@ Structured Query Language (SQL) is the de facto language of all Relational Datab
 
 ## Filtering Results Using WHERE
 
-- Basic syntax:
+-   Basic syntax:
 
 ```{SQL select}
   SELECT column(s)
@@ -241,29 +243,31 @@ Structured Query Language (SQL) is the de facto language of all Relational Datab
   WHERE condition(s);
 ```
 
-- The WHERE clause is used to filter results returned by a query, to extract only the rows that fulfill a specific condition.
-- You can also add a sorting clause here ORDER BY, which sorts alphanumerically. You can use ORDER
-BY column DESC to reverse the order.
+-   The WHERE clause is used to filter results returned by a query, to extract only the rows that fulfill a specific condition.
+-   You can also add a sorting clause here ORDER BY, which sorts alphanumerically. You can use ORDER BY column DESC to reverse the order.
 
 ## Querying Multiple Tables
 
-- (INNER) JOIN: returns records with matching values  in both tables
-- LEFT (OUTER) JOIN: returns all records from the left  table and only those that match in the right table
-- RIGHT (OUTER) JOIN: returns all records from the  right table and only those that match in the left  table
-- SELF JOIN: similar to a regular join, but one in which  the values of a table are compared with itself
+-   (INNER) JOIN: returns records with matching values in both tables
+-   LEFT (OUTER) JOIN: returns all records from the left table and only those that match in the right table
+-   RIGHT (OUTER) JOIN: returns all records from the right table and only those that match in the left table
+-   SELF JOIN: similar to a regular join, but one in which the values of a table are compared with itself
 
 ## Querying Multiple Tables
-![](images/joins.png) 
+
+![](images/joins.png)
 
 ## INNER JOINS
 
-- Basic Syntax:
+-   Basic Syntax:
+
 ```{SQL inner_join}
   SELECT table1.columnX, table2.columnY  FROM table1
   INNER JOIN table2 ON table1.column_name =  table2.column_name;
 ```
-  
-- Alternative (less efficient) Syntax:
+
+-   Alternative (less efficient) Syntax:
+
 ```{SQL inner_join2}
   #| echo: true
   SELECT columnX, columnY  
@@ -273,23 +277,25 @@ BY column DESC to reverse the order.
 
 ## LEFT/RIGHT JOINS
 
-- LEFT JOIN Syntax:
+-   LEFT JOIN Syntax:
+
 ```{SQL left_join}
   SELECT columnX, columnY  FROM table1
   LEFT JOIN table2	ON table1.column_name
   = table2.column_name;
 ```
-  
-- RIGHT JOIN Syntax:
+
+-   RIGHT JOIN Syntax:
+
 ```{SQL right_join}
   SELECT columnX, columnY  FROM table1
   RIGHT JOIN table2	ON table1.column_name
   = table2.column_name;
 ```
-  
+
 ## Self JOIN
 
-- A self JOIN is useful in certain circumstances. It requires use of an alias using the following syntax:
+-   A self JOIN is useful in certain circumstances. It requires use of an alias using the following syntax:
 
 ```{SQL self_jion}
   #| echo: true
@@ -297,8 +303,8 @@ BY column DESC to reverse the order.
   FROM table_name A, table_name B  
   WHERE A.columnX = B.columnX;
 ```
-  
-# SQLite in R 
+
+# SQLite in R
 
 ## What is SQLite?
 
@@ -314,6 +320,7 @@ library(RSQLite)
 ```
 
 ## Creating a Database and Tables
+
 The first step in working with SQLite in R is to create a new SQLite database. This is done using the dbConnect() function.
 
 ```{r dbConnect}
@@ -322,6 +329,7 @@ con <- dbConnect(SQLite(), dbname = "my_database.sqlite")
 ```
 
 ### Creating Tables
+
 Next, let's create a table to store information about patients.
 
 ```{r patients}
@@ -331,6 +339,7 @@ dbExecute(con, "CREATE TABLE IF NOT EXISTS Patients
 ```
 
 ### Inserting Data
+
 We can insert data into the Patients table using the dbExecute() function.
 
 ```{r insert}
@@ -340,6 +349,7 @@ dbExecute(con, "INSERT INTO Patients (Name, Age) VALUES ('Bob', 40);")
 ```
 
 ### Querying Data
+
 We can use the dbGetQuery() function to retrieve data from the database.
 
 ```{r query}
@@ -356,6 +366,7 @@ dbGetQuery(con, "SELECT * FROM Patients;")
 ```
 
 ### Updating and Deleting Data
+
 SQLite allows for updating and deleting records using the UPDATE and DELETE SQL statements, respectively.
 
 ```{r updatedelete}
@@ -367,8 +378,8 @@ dbExecute(con, "UPDATE Patients SET Age = 31 WHERE Name = 'Alice';")
 dbExecute(con, "DELETE FROM Patients WHERE Name = 'Bob';")
 ```
 
-
 ### Adding an Additional Table from an R DataFrame
+
 One of the powerful features of RSQLite is its ability to directly import R DataFrames into SQLite databases as tables. Let's create an R DataFrame called Encounters and add it to the SQLite database.
 
 ```{r add_second_table}
@@ -385,8 +396,8 @@ dbWriteTable(con, "Encounters", Encounters)
 
 ```
 
-
 ### Querying Across Multiple Tables
+
 In SQLite, you can perform joins to query data across multiple tables. For instance, to get a list of patients and their corresponding encounters, you could perform an SQL join operation.
 
 ```{r query_across_tables}
@@ -401,6 +412,7 @@ print(joined_result)
 ```
 
 ### Deleting a Table
+
 If you need to remove a table from an SQLite database, you can use the DROP TABLE SQL statement.
 
 ```{r delete_table}
@@ -409,10 +421,10 @@ dbExecute(con, "DROP TABLE Patients;")
 ```
 
 ### Deleting the Database
-SQLite databases are stored as single disk files. 
 
-![SQLite in RStudio](images/sqlite_in_rstudio.png)
-This is a very lightweight file that can be moved around as needed. Deleting the SQLite database is as simple as removing this file. However, make sure to first disconnect from the database in R.
+SQLite databases are stored as single disk files.
+
+![SQLite in RStudio](images/sqlite_in_rstudio.png) This is a very lightweight file that can be moved around as needed. Deleting the SQLite database is as simple as removing this file. However, make sure to first disconnect from the database in R.
 
 ```{r delete_database}
 
@@ -451,6 +463,7 @@ library(purrr)
 ```
 
 ## Step 1: Create a New SQLite Database
+
 The first step is to create a new SQLite database named synthea.
 
 ```{r part2_db}
@@ -460,7 +473,8 @@ con <- dbConnect(SQLite(), dbname = "synthea.sqlite")
 ```
 
 ## Step 2: List All CSV Files in the Directory
-List all the CSV files present in the target directory where your CSV files are stored. Replace your_directory_path with the actual path to your directory. I have them stored in the directory /csv in this R project. 
+
+List all the CSV files present in the target directory where your CSV files are stored. Replace your_directory_path with the actual path to your directory. I have them stored in the directory /csv in this R project.
 
 ```{r part2_loaddb1}
 # List all CSV files in the directory
@@ -468,6 +482,7 @@ csv_files <- list.files(path = "csv", pattern = "*.csv", full.names = TRUE)
 ```
 
 ## Step 3: Import Each CSV File as a Table
+
 We will use a loop or an apply function to read each CSV file and write it as a new table in the SQLite database.
 
 ```{r part2_loaddb2}
@@ -489,6 +504,7 @@ walk(csv_files, ~import_csv_to_sqlite(.x, con))
 ```
 
 ### Verification
+
 After running the above code, you should have an SQLite database named synthea with tables corresponding to each of the CSV files in the directory. You can verify this by listing the tables in the database.
 
 ```{r part2_verify}
@@ -496,7 +512,7 @@ After running the above code, you should have an SQLite database named synthea w
 dbListTables(con)
 ```
 
-### Bonus creation of E-R Diagram 
+### Bonus creation of E-R Diagram
 
 ```{r er_diagram}
 # Load the required library
@@ -527,7 +543,7 @@ visNetwork(nodes, edges) %>%
   visLayout(randomSeed = 123) # for reproducibility
 ```
 
-Now we can fiddle around with the tables here as we want. So if we want to query patients on a specific medication, we can do so: 
+Now we can fiddle around with the tables here as we want. So if we want to query patients on a specific medication, we can do so:
 
 ```{r med_example}
 dbGetQuery(con, "SELECT * 
@@ -536,7 +552,7 @@ dbGetQuery(con, "SELECT *
                 LIMIT 10;")
 ```
 
-Or if we want to pull all the distinct MALE patients on a specific medication, we can also do so: 
+Or if we want to pull all the distinct MALE patients on a specific medication, we can also do so:
 
 ```{r med_example2}
 dbGetQuery(con, "SELECT * 
@@ -546,7 +562,7 @@ dbGetQuery(con, "SELECT *
 
 ```
 
-We are now done. Disconnect and delete our work thus far (unless you want to keep it for some reason).
+We are now done with our simple example. Disconnect and delete our work thus far (unless you want to keep it for some reason).
 
 ```{r delete_database2}
 
@@ -556,3 +572,5 @@ dbDisconnect(con)
 # Delete the SQLite database file
 file.remove("synthea.sqlite")
 ```
+
+The last exercise is to work through some practical examples using a more complicated synthetic dataset, generated using [Synthea](https://synthea.mitre.org/). Please open [sqlite_exercises_synthea](./sqlite_exercises_synthea.R) to complete some additional exercises. You may also use tools like [DB Browser for SQLite](https://sqlitebrowser.org/) to query against your newly created database.
